@@ -3,7 +3,7 @@
 int digitsSince9 = 0;
 
 int lightpins[] = {10, 11, 12, 7, 8, 9, 4, 5, 6};
-boolean light[] = {true, false, true, false, true, false, true, false, true};
+boolean light[] = {false, false, false, false, false, false, false, false, false};
 
 void setup()
 {
@@ -37,10 +37,11 @@ void receiveEvent(int howMany)
       if(digitsSince9 >= 0 && digitsSince9 < 9){
         if (x ==0) {
           light[digitsSince9] = false;
-        }
-        else {
-          light[digitsSince9] = true;
-        }
+        } else if (x == 1 && light[digitsSince9] == true) {
+          light[digitsSince9] = false;
+       // }else if (x == 1 && light[digitsSince9] != true) {
+        //  light[digitsSince9] = true;
+        //}
       }
       digitsSince9 ++;
     }
