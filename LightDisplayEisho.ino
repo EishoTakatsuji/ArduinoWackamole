@@ -4,9 +4,17 @@ int digitsSince9 = 0;
 
 int lightpins[] = {10, 11, 12, 7, 8, 9, 4, 5, 6};
 boolean light[] = {false, false, false, false, false, false, false, false, false};
-
 void setup()
 {
+  for (int i = 0; i < 9; i++){
+  int x = random(0,2);
+  if (x == 1){
+    light[i] = true;
+  }
+  else{
+    light[i] = false;
+  }
+}
   for(int i = 0; i < 9; i++){
     pinMode(lightpins[i], OUTPUT);
   }
@@ -30,22 +38,23 @@ void receiveEvent(int howMany)
   while(0 < Wire.available()) // loop through all but the last
   {
     int x = Wire.read();
-    if ( x== 9){
+    if (x == 9){
       digitsSince9 = 0;
      // Serial.println(); 
     }else{
-      if(digitsSince9 >= 0 && digitsSince9 < 9){
-        if (x ==0) {
+      if (digitsSince9 >= 0 && digitsSince9 < 9){
+        if (x == 0) {
           light[digitsSince9] = false;
         } else if (x == 1 && light[digitsSince9] == true) {
           light[digitsSince9] = false;
-       // }else if (x == 1 && light[digitsSince9] != true) {
-        //  light[digitsSince9] = true;
-        //}
+        }else if (x == 1 && light[digitsSince9] != true) {
+         light[digitsSince9] = true;
+        }
       }
       digitsSince9 ++;
     }
     Serial.print(x);// receive byte as a character    // print the character
   }
          // print the integer
-}
+
+  }
